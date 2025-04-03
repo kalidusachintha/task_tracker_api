@@ -14,7 +14,7 @@ interface TaskServiceInterface
      * @param int $perPage
      * @return LengthAwarePaginator
      */
-    public function getAllTasks(int $perPage = 15): LengthAwarePaginator;
+    public function getAllTasks(int $perPage): LengthAwarePaginator;
 
     /**
      * Get a task by ID.

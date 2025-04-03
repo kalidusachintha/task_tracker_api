@@ -14,6 +14,18 @@
                 "summary": "Get list of tasks",
                 "description": "Display a listing of tasks.",
                 "operationId": "b07f65b771b24b2f1a573bbaef391dad",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Tasks per peage",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
