@@ -99,15 +99,15 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad request",
+                    "500": {
+                        "description": "Internal server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "No tasks found"
+                                            "example": "Something went wrong"
                                         }
                                     },
                                     "type": "object"

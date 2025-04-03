@@ -4,16 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\TaskDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\TaskIndexRequest;
 use App\Http\Requests\Api\V1\TaskStoreRequest;
 use App\Http\Requests\Api\V1\TaskUpdateRequest;
 use App\Http\Resources\V1\TaskResource;
 use App\Services\Api\V1\Interfaces\TaskServiceInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Validation\ValidationException;
 
 /**
  * @OA\Info(
@@ -88,30 +87,23 @@ class TaskController extends Controller
      *     ),
      *
      *     @OA\Response(
-     *          response=400,
-     *          description="Bad request",
+     *          response=500,
+     *          description="Internal server Error",
      *
      *          @OA\JsonContent(
      *
-     *              @OA\Property(property="error", type="string", example="No tasks found")
+     *              @OA\Property(property="error", type="string", example="Something went wrong")
      *          )
      *     )
      * )
      */
-    public function index(Request $request): JsonResponse | AnonymousResourceCollection
+    public function index(TaskIndexRequest $request): JsonResponse | AnonymousResourceCollection
     {
         try {
-            $validated = $request->validate([
-                'per_page' => ['nullable', 'integer', 'min:1', 'max:100']
-            ]);
-            $perPage = $validated['per_page'] ?? Config::get('pagination.per_page');
+            $perPage = $request->validated()['per_page'] ?? Config::get('pagination.per_page');
             $tasks = $this->taskServiceInterface->getAllTasks($perPage);
 
             return TaskResource::collection($tasks);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'error' => 'Invalid input. '.$e->getMessage(),
-            ], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'Something went wrong',
