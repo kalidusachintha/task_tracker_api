@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @OA\Schema(
+ *     schema="Task",
+ *     required={"id", "title"},
+ *     @OA\Property(property="id", type="integer", format="int64", example=1),
+ *     @OA\Property(property="title", type="string", example="Complete project documentation"),
+ *     @OA\Property(property="description", type="string", example="Write comprehensive documentation for the API"),
+ *     @OA\Property(property="status", type="string", enum={"pending", "completed"}, example="pending"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
+
 class Task extends Model
 {
     /** @use HasFactory<TaskFactory> */
