@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\V1;
 
-use App\Enums\TaskStatus;
+use App\Models\TaskStatus;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,7 +27,7 @@ class TaskUpdateRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'status' => ['string', Rule::in([TaskStatus::COMPLETED,TaskStatus::PENDING])],
+            'task_status_id' => ['nullable', 'integer', Rule::exists(TaskStatus::class, 'id')],
         ];
     }
 }

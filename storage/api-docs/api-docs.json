@@ -446,6 +446,52 @@
                     }
                 }
             }
+        },
+        "/api/v1/statuses": {
+            "get": {
+                "tags": [
+                    "Tasks Status"
+                ],
+                "summary": "Get list of Status",
+                "description": "Get all the Tasks status.",
+                "operationId": "74720d73a1e80e55d686fc9ff0d59935",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskStatus"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Something went wrong"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -470,20 +516,34 @@
                         "example": "Write comprehensive documentation for the API"
                     },
                     "status": {
+                        "$ref": "#/components/schemas/TaskStatus"
+                    },
+                    "created_date": {
                         "type": "string",
-                        "enum": [
-                            "pending",
-                            "completed"
-                        ],
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskStatus": {
+                "required": [
+                    "id",
+                    "name",
+                    "code"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
                         "example": "pending"
                     },
-                    "created_at": {
+                    "code": {
                         "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time"
+                        "example": "#fffff"
                     }
                 },
                 "type": "object"
@@ -494,6 +554,10 @@
         {
             "name": "Tasks",
             "description": "Tasks"
+        },
+        {
+            "name": "Tasks Status",
+            "description": "Tasks Status"
         }
     ]
 }

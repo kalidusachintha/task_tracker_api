@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Enums\TaskStatus;
 use App\Models\Task;
+use App\Models\TaskStatus;
 use Tests\TestCase;
 
 class TaskTest extends TestCase
@@ -26,14 +26,14 @@ class TaskTest extends TestCase
      */
     public function test_can_create_task(): void
     {
+        $taskStatus = TaskStatus::factory()->create();
         $response = $this->postJson('/api/v1/tasks', [
             'title' => 'Test Task',
             'description' => 'Test Description',
-            'status' => TaskStatus::PENDING->value,
+            'task_status_id' => $taskStatus->id,
         ]);
-
         $response->assertStatus(200);
-        $response->assertJsonFragment(['title' => 'Test Task']);
+        $this->assertEquals($taskStatus->id, $response['data']['status']['id']);
     }
 
     /**
@@ -42,9 +42,7 @@ class TaskTest extends TestCase
      */
     public function test_can_get_single_task(): void
     {
-        $task = Task::factory()->create([
-            'status' => TaskStatus::PENDING->value,
-        ]);
+        $task = Task::factory()->create();
 
         $response = $this->getJson("/api/v1/tasks/{$task->id}");
 
@@ -54,7 +52,6 @@ class TaskTest extends TestCase
                     'id' => $task->id,
                     'title' => $task->title,
                     'description' => $task->description,
-                    'status' => TaskStatus::PENDING->value,
                     'created_date' => $task->created_at->format('Y-m-d'),
                 ]
             ]);
@@ -71,7 +68,6 @@ class TaskTest extends TestCase
         $updatedData = [
             'title' => 'Updated Task',
             'description' => 'This task has been updated',
-            'status' => TaskStatus::PENDING->value,
         ];
 
         $response = $this->putJson("/api/v1/tasks/{$task->id}", $updatedData);
@@ -103,8 +99,7 @@ class TaskTest extends TestCase
     public function test_cannot_create_task_without_title(): void
     {
         $response = $this->postJson('/api/v1/tasks', [
-            'description' => 'Description without title',
-            'status' => TaskStatus::PENDING->value,
+            'description' => 'Description without title'
         ]);
 
         $response->assertStatus(422)

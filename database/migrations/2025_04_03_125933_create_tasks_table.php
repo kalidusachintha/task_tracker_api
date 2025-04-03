@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('task_status_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
-            $table->index('status');
-            $table->index(['user_id', 'status']);
+            $table->index('task_status_id');
+            $table->index(['user_id', 'task_status_id']);
         });
     }
 

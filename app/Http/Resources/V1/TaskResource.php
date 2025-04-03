@@ -19,7 +19,7 @@ class TaskResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'status' => $this->status,
+            'status' => TaskStatusResource::make($this->task_status),
             'created_date' => $this->created_at->format('Y-m-d'),
             'user_id' => $this->when($this->user_id, $this->user_id),
         ];

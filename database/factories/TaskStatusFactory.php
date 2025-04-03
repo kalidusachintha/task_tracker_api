@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Task;
+use App\Enums\TaskStatusEnum;
+use App\Models\TaskStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Task>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TaskStatus>
  */
-class TaskFactory extends Factory
+class TaskStatusFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,8 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(4),
-            'description' => $this->faker->paragraph(3),
-            'task_status_id' => null,
-            'user_id' => null,
+            'name' => TaskStatusEnum::PENDING->value,
+            'code' => $this->faker->hexColor
         ];
     }
 }

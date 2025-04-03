@@ -24,7 +24,7 @@ readonly class TaskService implements TaskServiceInterface
      */
     public function getAllTasks(int $perPage): LengthAwarePaginator
     {
-        return $this->task->latest()->paginate($perPage);
+        return $this->task->with('task_status')->orderByDesc('id')->paginate($perPage);
     }
 
     /**

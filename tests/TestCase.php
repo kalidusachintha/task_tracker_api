@@ -9,5 +9,5 @@ abstract class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true;
+    protected $seed = false;
 }

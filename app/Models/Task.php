@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\TaskStatus;
+use App\Enums\TaskStatusEnum;
 use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @OA\Property(property="id", type="integer", format="int64", example=1),
  *     @OA\Property(property="title", type="string", example="Complete project documentation"),
  *     @OA\Property(property="description", type="string", example="Write comprehensive documentation for the API"),
- *     @OA\Property(property="status", type="string", enum={"pending", "completed"}, example="pending"),
- *     @OA\Property(property="created_at", type="string", format="date-time"),
- *     @OA\Property(property="updated_at", type="string", format="date-time")
+ *     @OA\Property(
+ *          property="status",
+ *          ref="#/components/schemas/TaskStatus"
+ *      ),
+ *     @OA\Property(property="created_date", type="string", format="date"),
  * )
  */
 
@@ -33,6 +35,7 @@ class Task extends Model
         'description',
         'status',
         'user_id',
+        'task_status_id',
     ];
 
     /**
@@ -45,15 +48,27 @@ class Task extends Model
         return [
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
-            'status' => TaskStatus::class,
+            'status' => TaskStatusEnum::class,
         ];
     }
 
     /**
      * Get the user that owns the task.
+     *
+     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get status related to task.
+     *
+     * @return BelongsTo
+     */
+    public function task_status(): BelongsTo
+    {
+        return $this->belongsTo(TaskStatus::class);
     }
 }

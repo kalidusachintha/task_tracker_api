@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\Api\V1\Interfaces\TaskServiceInterface;
+use App\Services\Api\V1\Interfaces\TaskStatusServiceInterface;
 use App\Services\Api\V1\TaskService;
+use App\Services\Api\V1\TaskStatusService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\RateLimiter;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
+        $this->app->bind(TaskStatusServiceInterface::class, TaskStatusService::class);
     }
 
     /**
