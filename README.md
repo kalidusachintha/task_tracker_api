@@ -4,7 +4,7 @@
 
 This document outlines the development approach for a Task Tracker API built with Laravel. 
 The system allows users to create, view, update, and delete tasks, with each task having a title, description, and status.
-The architecture is designed to be scalable for future features like multi user or team based support
+The architecture is designed to be scalable for future features like multi-user or team based support
 
 ## 2. System Architecture
 
