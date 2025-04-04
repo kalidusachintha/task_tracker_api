@@ -37,6 +37,13 @@ The architecture is designed to be scalable for future features like multi user 
 
 ### 3.1 Database Design
 
+**task_statuses table:**
+- id (primary key)
+- name (string, unique)
+- code (string)
+- created_at (timestamp)
+- updated_at (timestamp)
+
 **tasks table:**
 - id (primary key)
 - title (string)
@@ -45,17 +52,20 @@ The architecture is designed to be scalable for future features like multi user 
 - created_at (timestamp)
 - updated_at (timestamp)
 - user_id (foreign key, nullable, for future integration)
-- indexes - status, status_user_id
+- task_status_id (foreign key, nullable)
+- indexes - task_status_id
+- indexes - task_status_id, user_id
 
 ### 3.2 API Endpoints
 
-| Method | Endpoint        | Description                  |
-|--------|-----------------|------------------------------|
-| GET    | /api/v1/tasks   | Get all tasks                |
-| GET    | /api/v1/tasks/{id} | Get specific task            |
-| POST   | /api/v1/tasks      | Create new task              |
-| PUT    | /api/v1/tasks/{id} | Update existing task         |
-| DELETE | /api/v1/tasks/{id} | Delete a task                |
+| Method | Endpoint          | Description          |
+|--------|-------------------|----------------------|
+| GET    | /api/v1/tasks     | Get all tasks        |
+| GET    | /api/v1/tasks/{id} | Get specific task    |
+| POST   | /api/v1/tasks     | Create new task      |
+| PUT    | /api/v1/tasks/{id} | Update existing task |
+| DELETE | /api/v1/tasks/{id} | Delete a task        |
+| GET    | /api/v1/statuses  | Get all statuses     |
 
 ### 3.3 Testing Strategy
 
@@ -76,12 +86,13 @@ The architecture is designed to be scalable for future features like multi user 
 ├───DTO
 |    └─── TaskDTO.php
 ├───Enums
-|    └─── TaskStatus.php
+|    └─── TaskStatusEnum.php
 ├───Http
 │   ├───Controllers
 │   │   └───Api
 │   │       └───V1
 |   |            └─── TaskController.php
+|   |            └─── TaskStatusController.php
 │   ├───Requests
 │   │   └───Api
 │   │       └───V1
@@ -91,8 +102,11 @@ The architecture is designed to be scalable for future features like multi user 
 │   └───Resources
 │       └───V1
 |            └─── TaskResource.php
+|            └─── TaskStatusRescourse.php
 ├───Models
 |        └─── Task.php
+|        └─── TaskStatus.php
+|        └─── User.php
 ├───Providers
 |        └─── AppServiceProvider.php
 └───Services
@@ -100,7 +114,9 @@ The architecture is designed to be scalable for future features like multi user 
         └───V1
             └───Interfaces
                     └─── TaskServiceInterface.php
+                    └─── TaskStatusServiceInterface.php
             └─── TaskService.php
+            └─── TaskStatusService.php
 ```
 ### 4.2 Scalability Considerations
 
