@@ -48,7 +48,6 @@ The architecture is designed to be scalable for future features like multi user 
 - id (primary key)
 - title (string)
 - description (text)
-- status (enum: 'pending', 'completed')
 - created_at (timestamp)
 - updated_at (timestamp)
 - user_id (foreign key, nullable, for future integration)

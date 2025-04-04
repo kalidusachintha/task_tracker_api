@@ -16,10 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @OA\Property(property="id", type="integer", format="int64", example=1),
  *     @OA\Property(property="title", type="string", example="Complete project documentation"),
  *     @OA\Property(property="description", type="string", example="Write comprehensive documentation for the API"),
- *     @OA\Property(
- *          property="status",
- *          ref="#/components/schemas/TaskStatus"
- *      ),
+ *     @OA\Property(property="status", type="string", example="In progress"),
+ *     @OA\Property(property="code", type="string", example="#0e5706"),
+ *     @OA\Property(property="task_status_id", type="integer", example="1"),
  *     @OA\Property(property="created_date", type="string", format="date"),
  * )
  */

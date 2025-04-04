@@ -33,7 +33,7 @@ class TaskTest extends TestCase
             'task_status_id' => $taskStatus->id,
         ]);
         $response->assertStatus(200);
-        $this->assertEquals($taskStatus->id, $response['data']['status']['id']);
+        $this->assertEquals($taskStatus->id, $response['data']['task_status_id']);
     }
 
     /**

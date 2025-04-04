@@ -516,7 +516,16 @@
                         "example": "Write comprehensive documentation for the API"
                     },
                     "status": {
-                        "$ref": "#/components/schemas/TaskStatus"
+                        "type": "string",
+                        "example": "In progress"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "#0e5706"
+                    },
+                    "task_status_id": {
+                        "type": "integer",
+                        "example": "1"
                     },
                     "created_date": {
                         "type": "string",
