@@ -174,3 +174,35 @@ The architecture is designed to be scalable for future features like multi-user 
 - Activity logging and audit trail
 - Notifications system
 - Caching implementation
+
+## 8.Project setup instructions
+
+### 8.1 Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- MySQL or PostgreSQL
+- Apache or nginx
+
+### 8.2 Installation Steps
+
+- Clone the project using `git clone` command
+````
+git clone https://github.com/kalidusachintha/task_tracker_api.git
+cd task_tracker_api
+````
+- Rename `.env.example `to`.env`
+- Configure your database in the `.env` file
+- Run `php artisan migrate --seed`
+
+### 8.3 Issues and troubleshooting
+
+- For database connection errors, verify your database credentials and check if the database exists
+- If migrations fail, check if your database user has sufficient privileges
+- Make sure to configure CORS for allowing access to api
+
+### 8.4 Additional Commands
+
+- Run tests: `php artisan test`
+- Clear cache: `php artisan cache:clear`
+- Clear config: `php artisan config:clear`
