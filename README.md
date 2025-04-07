@@ -69,6 +69,7 @@ The architecture is designed to be scalable for future features like multi-user 
 ### 3.3 Testing Strategy
 
 - **Feature Tests**: For API endpoints and Rate limit.
+- **Unit Tests**: For Service classes testing.
 
 ### 3.4 Development stack
 -  Laravel (v12)
@@ -82,40 +83,62 @@ The architecture is designed to be scalable for future features like multi-user 
 ### 4.1 Directory Structure
 
 ```
-├───DTO
-|    └─── TaskDTO.php
-├───Enums
-|    └─── TaskStatusEnum.php
-├───Http
-│   ├───Controllers
-│   │   └───Api
-│   │       └───V1
-|   |            └─── TaskController.php
-|   |            └─── TaskStatusController.php
-│   ├───Requests
-│   │   └───Api
-│   │       └───V1
-|   |            └─── TaskIndexRequest.php
-|   |            └─── TaskStoreRequest.php
-|   |            └─── TaskUpdateRequest.php
-│   └───Resources
-│       └───V1
-|            └─── TaskResource.php
-|            └─── TaskStatusRescourse.php
-├───Models
-|        └─── Task.php
-|        └─── TaskStatus.php
-|        └─── User.php
-├───Providers
-|        └─── AppServiceProvider.php
-└───Services
-    └───Api
-        └───V1
-            └───Interfaces
-                    └─── TaskServiceInterface.php
-                    └─── TaskStatusServiceInterface.php
-            └─── TaskService.php
-            └─── TaskStatusService.php
+├───app
+|    ├───DTO
+|    |    └─── TaskDTO.php
+|    ├───Enums
+|    |    └─── TaskStatusEnum.php
+|    ├───Http
+|    │   ├───Controllers
+|    │   │   └───Api
+|    │   │       └───V1
+|    |   |            └─── TaskController.php
+|    |   |            └─── TaskStatusController.php
+|    │   ├───Requests
+|    │   │    └───Api
+|    │   │       └───V1
+|    |   |            └─── TaskIndexRequest.php
+|    |   |            └─── TaskStoreRequest.php
+|    |   |            └─── TaskUpdateRequest.php
+|    │   └───Resources
+|    │        └───V1
+|    |            └─── TaskResource.php
+|    |            └─── TaskStatusRescourse.php
+|    ├───Models
+|    |        └─── Task.php
+|    |        └─── TaskStatus.php
+|    |        └─── User.php
+|    ├───Providers
+|    |        └─── AppServiceProvider.php
+|    └───Services
+|    |    └───Api
+|    |        └───V1
+|    |            └───Interfaces
+|    |                    └─── TaskServiceInterface.php
+|    |                    └─── TaskStatusServiceInterface.php
+|    |            └─── TaskService.php
+|    |            └─── TaskStatusService.php
+|───test
+|    └───Feature
+|    |       └─── RateLimiterTest.php
+|    |       └─── TaskTest.php
+|    └───Unit
+|    |       └─── TaskService.php
+|    |
+|───database
+|    └───factories
+|    |       └─── TaskFactory.php
+|    |       └─── TaskStatusFactory.php
+|    └───migrations
+|    |       └─── 2025_04_02_043857_create_task_statuses_table.php
+|    |       └─── 2025_04_03_125933_create_tasks_table.php
+|    └───seeders
+|    |       └─── TaskSeeder.php
+|    |       └─── TaskStatusSeeder.php 
+|───config
+|    └─── pagination.php      
+
+
 ```
 ### 4.2 Scalability Considerations
 
